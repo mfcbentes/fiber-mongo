@@ -10,8 +10,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var (
-	TODO_DB = "TODO_DB"
+const (
+	TODO_DB      = "TODO_DB"
+	TODO_DB_NAME = "TODO_DB_NAME"
 )
 
 func GetConnection() (client *mongo.Client, ctx context.Context) {

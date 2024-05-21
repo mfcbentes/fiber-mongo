@@ -15,13 +15,11 @@ var (
 )
 
 func GetConnection() (client *mongo.Client, ctx context.Context) {
-	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("TODO_DB")))
-	if err != nil {
-		log.Fatal(err)
-	}
 
-	ctx, _ = context.WithTimeout(context.Background(), 10*time.Second)
-	err = client.Connect(ctx)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("TODO_DB")))
 	if err != nil {
 		log.Fatal(err)
 	}
